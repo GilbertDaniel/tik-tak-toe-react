@@ -48,6 +48,7 @@ function App() {
 
       if (foundWinningPattern) {
         setResult({ winner: player, state: "Won" });
+        restartGame()
       }
     });
   }
@@ -64,7 +65,12 @@ function App() {
     if (filled) {
       setResult({ winner: "No One", state: "Tie" });
     }
-  };
+  }
+
+  const restartGame = () => {
+    setBoard(["", "", "", "", "", "", "", "", ""]);
+    setPlayer("O");
+  }
 
 
   return (
