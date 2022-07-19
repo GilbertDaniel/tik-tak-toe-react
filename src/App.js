@@ -9,7 +9,8 @@ function App() {
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
-    checkWin();
+    checkWin()
+    checkIfTie()
     if(player === "X"){
       setPlayer("O")
     }else{
@@ -18,7 +19,7 @@ function App() {
   }, [board]);
 
   useEffect(() => {
-    if (result.state != "none") {
+    if (result.state !== "none") {
       alert(`Game Finished! Winning Player: ${result.winner}`);
     }
   }, [result]);
@@ -37,10 +38,10 @@ function App() {
   const checkWin = () => {
     Patterns.forEach((currPattern) => {
       const firstPlayer = board[currPattern[0]];
-      if (firstPlayer == "") return;
+      if (firstPlayer === "") return;
       let foundWinningPattern = true;
       currPattern.forEach((idx) => {
-        if (board[idx] != firstPlayer) {
+        if (board[idx] !== firstPlayer) {
           foundWinningPattern = false;
         }
       });
@@ -49,7 +50,22 @@ function App() {
         setResult({ winner: player, state: "Won" });
       }
     });
+  }
+
+
+  const checkIfTie = () => {
+    let filled = true;
+    board.forEach((square) => {
+      if (square === "") {
+        filled = false;
+      }
+    });
+
+    if (filled) {
+      setResult({ winner: "No One", state: "Tie" });
+    }
   };
+
 
   return (
     <div className='App'>
