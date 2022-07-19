@@ -5,12 +5,16 @@ import { Patterns } from './Patterns';
 
 function App() {
   const [board, setBoard] = useState(["", "", "", "", "", "", "", "", ""]);
-  const [player, setPlayer] = useState("X")
+  const [player, setPlayer] = useState("O")
   const [result, setResult] = useState({ winner: "none", state: "none" });
 
   useEffect(() => {
     checkWin();
-    
+    if(player === "X"){
+      setPlayer("O")
+    }else{
+      setPlayer("X")
+    }
   }, [board]);
 
   useEffect(() => {
@@ -27,13 +31,7 @@ function App() {
           }
           return val;
         })
-      )
-
-      if(player === "X"){
-        setPlayer("O")
-      }else{
-        setPlayer("X")
-      }
+      )      
   }
 
   const checkWin = () => {
